@@ -1,17 +1,27 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>Home Page</title>
 </head>
 
 <body>
-    <h1>Hello, It's my first Django Website</h1>
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis cumque, placeat laudantium molestiae incidunt
-        maiores, saepe itaque doloremque earum alias, iusto quis asperiores rerum dolorum sunt corrupti. Doloremque,
-        magni sed.</p>
+    <h1>New Posts</h1>
+    {% for post in posts %}
+    <div style="border:1px solid #ddd; padding:10px; margin:10px; background:white;">
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.content }}</p>
+        <small>Created: {{ post.created_at }}</small>
+        <a href="{% url 'edit_post' post.id %}">Edit post</a>
+        <a href="{% url 'delete_post' post.id %}">Delete post</a>
+    </div>
+    {% endfor %}
+
+    <a href="{% url 'add_post' %}">Add new post</a>
 </body>
 
 </html>
